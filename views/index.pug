@@ -1,12 +1,27 @@
 doctype html
-html
+html(lang="en")
   head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    link(href='/styles.css' rel='stylesheet')
-    title Express.js boilerplate using Pug and Tailwind CSS
-  body.bg-purple-900
-    .container.mx-auto.w-screen
-      .mt-5
-        h1.text-9xl.text-white.text-center Hello World
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Managers and Administrators Web Platform
+    link(rel='icon', type='image/png', sizes='16x16', href='/images/LOGO-POUR-WEB-01.png')
+    link(rel='icon', type='image/png', sizes='32x32', href='/images/LOGO-POUR-WEB-01.png')
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css")
+    style.
+      .logo-text {
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #4a5568;
+      }
 
+  body.bg-gray-100.flex.items-center.justify-center.min-h-screen
+    .container.max-w-md.mx-auto.text-center
+      .flex.flex-col.items-center.mb-8
+        img(src="/images/LOGO-POUR-WEB-01.png", alt="Logo")
+        .logo-text.mt-4 Managers & Admins
+      .flex.flex-col.space-y-4
+        a(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="/manager/login")
+          | Login as Manager
+        a(class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="/admin/login")
+          | Login as Admin

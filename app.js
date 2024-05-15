@@ -7,7 +7,9 @@ const app = express();
 
 const auth = require('./routes/auth.routes.js');
 const admins = require('./routes/admin.routes.js');
+const managers = require('./routes/manager.routes.js');
 const sequelize = require('./config/database');
+
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +33,7 @@ try {
     console.log('Connection has been established successfully.');
     auth(app);
     admins(app);
+    managers(app);
   });
 } catch (error) {
   console.error('Unable to connect to the database:', error);

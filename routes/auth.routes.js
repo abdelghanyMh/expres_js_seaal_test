@@ -56,7 +56,7 @@ module.exports = function (app) {
       }
       const token = generateToken({ managerId: manager.id });
       req.session.managerToken = token;
-      return res.redirect('/managers/dashboard');
+      return res.redirect('/manager/dashboard');
     } catch (err) {
       console.error(err);
       return res
