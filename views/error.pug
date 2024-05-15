@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Error
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css")
+
+  body(class="bg-gray-100 flex items-center justify-center min-h-screen")
+    .container.max-w-md.mx-auto.text-center
+      .bg-red-100.border-l-4.border-red-500.text-red-700.p-4.mb-4.w-full(max-width='sm')
+        .flex.items-center
+          .flex-shrink-0.w-6.h-6.fill-current.mr-4
+            svg(xmlns='http://www.w3.org/2000/svg', viewBox='0 0 20 20', class='w-6 h-6 fill-current')
+              path(d='M0 0h20v20H0V0zm17.38 15.5L10 7.12 2.62 15.5l-.88-.88L10 5.38l8.25 8.24-.87.88z')
+          .ml-2 #{message}
+      button(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4", onclick="goBack()") Go Back
+
+script.
+  function goBack() {
+    window.history.back();
+  }
