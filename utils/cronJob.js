@@ -5,7 +5,7 @@ const Manager = require('../models/Manager');
 const cronJob = cron.schedule('*/30 * * * * *', async () => {
   try {
     await Manager.update({ occurrence: 1 }, { where: {} });
-    console.log('Occurrence updated successfully.');
+    console.warn('Occurrence updated successfully.');
   } catch (error) {
     console.error('Error updating occurrence:', error);
   }
