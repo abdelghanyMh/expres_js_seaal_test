@@ -8,7 +8,9 @@ const app = express();
 const auth = require('./routes/auth.routes.js');
 const admins = require('./routes/admin.routes.js');
 const managers = require('./routes/manager.routes.js');
+
 const sequelize = require('./config/database');
+const cronJob = require('./utils/cronJob');
 
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
@@ -34,6 +36,8 @@ try {
     auth(app);
     admins(app);
     managers(app);
+    // Start the cron job
+    cronJob.start();
   });
 } catch (error) {
   console.error('Unable to connect to the database:', error);
