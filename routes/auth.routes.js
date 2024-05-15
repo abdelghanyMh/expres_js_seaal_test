@@ -25,7 +25,9 @@ module.exports = function (app) {
           error: 'Invalid password',
         });
       }
+      delete admin.dataValues.password;
       // console.log(admin.dataValues);
+
       req.session.user = admin.dataValues;
       req.session.user.isAdmin = true;
       return res.redirect('/admins/managers');
@@ -70,5 +72,17 @@ module.exports = function (app) {
         .status(500)
         .render('error', { message: 'Internal server error' });
     }
+  });
+
+  //   logout route
+  app.get('/logout', (req, res) => {
+    // Clear session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+      // Redirect to login page or any other appropriate action
+      res.redirect('/');
+    });
   });
 };

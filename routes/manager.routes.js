@@ -3,7 +3,7 @@ const Manager = require('../models/Manager');
 module.exports = function (app) {
   app.get('/manager/dashboard', ensureAuthenticatedAndManager, (req, res) => {
     console.log(req.session.user);
-    res.render('manager/dashboard', ensureAuthenticatedAndManager, {
+    res.render('manager/dashboard', {
       user: req.session.user,
     });
   });
