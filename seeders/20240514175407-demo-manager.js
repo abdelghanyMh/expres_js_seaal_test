@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Mangers', [
+    return queryInterface.bulkInsert('Managers', [
       {
         name: 'manager_1',
         email: 'example1@example.com',
@@ -39,6 +39,6 @@ module.exports = {
     ]);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Mangers', null, {});
+    return queryInterface.bulkDelete('Managers', null, {});
   },
 };

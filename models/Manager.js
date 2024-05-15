@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Manger = sequelize.define('Manger', {
+const Manager = sequelize.define('Managers', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -21,4 +21,4 @@ const Manger = sequelize.define('Manger', {
   },
 });
 
-module.exports = Manger;
+module.exports = Manager;

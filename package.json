@@ -5,10 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm run build:css && nodemon ./bin/www",
+    "dev": "npm run dockup && npm run build:css",
     "start": "NODE_ENV=production npm run build:css && node ./bin/www",
     "build:css": "postcss src/css/app.css -o assets/styles.css",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "dockup": "docker compose up -d",
+    "db:create": "npx sequelize-cli db:create",
+    "db:drop": "npx sequelize-cli db:drop",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:init": "npm run db:create && npm run db:migrate &&  npm run db:seed",
+    "listen": "nodemon ./bin/www"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +25,7 @@
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "debug": "^4.3.1",
+    "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
