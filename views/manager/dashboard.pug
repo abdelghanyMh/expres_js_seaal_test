@@ -5,8 +5,8 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Manager View
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css")
-  body(class="bg-gray-100 flex items-center justify-center h-screen")
-    div(class="max-w-md p-8 bg-white rounded-lg shadow-md")
+  body(class="bg-gray-100 flex items-center justify-center h-screen gap-3")
+    div(class="max-w-md p-14  bg-white rounded-lg shadow-md")
       img(src="/images/LOGO-POUR-WEB-01.png" alt="Company Logo" class="mx-auto mb-6")
       h2(class="text-xl font-semibold mb-4 text-center") Send Message
         button(type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-600 transition duration-300" onclick=`sendMessage()`) Send
@@ -15,6 +15,20 @@ html(lang="en")
         p(class="text-red-600 text-center hidden" id="failureMessage") Message failed to send. Please try again.
         if error
           p(class="text-red-600 text-center ")= error
+    div(class="max-w-sm  bg-white rounded overflow-hidden  p-14  shadow-md")
+      div(class="p-5 ")
+        div(class="font-bold text-xl mb-2") User Session Data
+        div(class="text-gray-700 text-base")
+          div(class="mb-2")
+            label(for="session-email" class="block text-sm font-bold mb-1 inline") Email:
+            p(id="session-email" class="text-sm inline ml-2")=user.email
+          div(class="mb-2")
+            label(for="session-role" class="block text-sm font-bold mb-1 inline") Role:
+            p(id="session-role" class="text-sm inline ml-2")= user.isAdmin? "Administrator" : "Manager"
+          if(!user.isadmin)
+            div(class="mb-2")
+              label(for="session-last-login" class="block text-sm font-bold mb-1 inline") Occurrence:
+              p(id="session-last-login" class="text-sm inline ml-2")=user.occurrence
 
 
     script(src="/scripts.js")

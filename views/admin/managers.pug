@@ -7,10 +7,11 @@ html(lang="en")
     title Managers
     link(href="/tailwind/tailwind.css", rel="stylesheet")
     link(href="/styles.css", rel="stylesheet")
-  body(class="bg-gray-100")
-    div(class="container mx-auto px-4 py-8")
+  body(class="bg-gray-100  flex items-center justify-center gap-3 h-screen w-full flex-col ")
+    div(class="container mx-auto px-4 py-8 ")
       img(src="/images/LOGO-POUR-WEB-01.png", alt="Logo" class="mx-auto mb-8")
       h1(class="text-3xl font-semibold mb-8 text-center") Managers
+    div(class="container mx-auto px-4 py-8 flex items-center justify-center gap-3 h-screen w-full")
       table(class="w-full border-collapse border border-gray-300")
         thead
           tr
@@ -21,11 +22,24 @@ html(lang="en")
         tbody
           each manager in managers
             tr
-              td(class="border border-gray-300 px-6 py-4 whitespace-nowrap")= manager.name
-              td(class="border border-gray-300 px-6 py-4 whitespace-nowrap")= manager.email
-              td(class="border border-gray-300 px-6 py-4 whitespace-nowrap")= manager.occurrence
-              td(class="border border-gray-300 px-6 py-4 whitespace-nowrap")
+              td(class="border border-gray-300 px-4 py-2 whitespace-nowrap")= manager.name
+              td(class="border border-gray-300 px-4 py-2 whitespace-nowrap")= manager.email
+              td(class="border border-gray-300 px-4 py-2 whitespace-nowrap")= manager.occurrence
+              td(class="border border-gray-300 px-4 py-2 whitespace-nowrap")
                 button(type='button' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick=`resetOccurrence(${manager.id})`) Reset
-
+      div(class=" min-w-max bg-white rounded overflow-hidden  p-14  shadow-md")
+          div(class="p-5 ")
+            div(class="font-bold text-xl mb-2") User Session Data
+            div(class="text-gray-700 text-base")
+              div(class="mb-2")
+                label(for="session-email" class="block text-sm font-bold mb-1 inline") Email:
+                p(id="session-email" class="text-sm inline ml-2")=user.email
+              div(class="mb-2")
+                label(for="session-role" class="block text-sm font-bold mb-1 inline") Role:
+                p(id="session-role" class="text-sm inline ml-2")= user.isAdmin? "Administrator" : "Manager"
+              if(!user.isAdmin)
+                div(class="mb-2")
+                  label(for="session-last-login" class="block text-sm font-bold mb-1 inline") Occurrence:
+                  p(id="session-last-login" class="text-sm inline ml-2")=user.occurrence
     script(src="/scripts.js")
 
