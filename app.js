@@ -11,6 +11,7 @@ const managers = require('./routes/manager.routes.js');
 
 const sequelize = require('./config/database');
 const cronJob = require('./utils/cronJob');
+const { checkIsAuthenticated } = require('./middelware/middlewares.js');
 
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
@@ -42,7 +43,7 @@ try {
 } catch (error) {
   console.error('Unable to connect to the database:', error);
 }
-app.get('/', (req, res) => {
+app.get('/', checkIsAuthenticated, (req, res) => {
   res.render('index');
 });
 module.exports = app;

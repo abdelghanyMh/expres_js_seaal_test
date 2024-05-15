@@ -1,7 +1,11 @@
+const { ensureAuthenticatedAndManager } = require('../middelware/middlewares');
 const Manager = require('../models/Manager');
 module.exports = function (app) {
-  app.get('/manager/dashboard', (req, res) => {
-    res.render('manager/dashboard');
+  app.get('/manager/dashboard', ensureAuthenticatedAndManager, (req, res) => {
+    console.log(req.session.user);
+    res.render('manager/dashboard', ensureAuthenticatedAndManager, {
+      user: req.session.user,
+    });
   });
   // Reset occurrence route
   app.post('/manager/send', async (req, res) => {

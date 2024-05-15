@@ -1,9 +1,12 @@
 const Admin = require('../models/Admin');
 const Manager = require('../models/Manager');
-const { generateToken, comparePasswords } = require('../utils/auth');
+const { comparePasswords } = require('../utils/auth');
+
+const { checkIsAuthenticated } = require('../middelware/middlewares.js');
+
 module.exports = function (app) {
   // Admin login route
-  app.get('/admin/login', (req, res) => {
+  app.get('/admin/login', checkIsAuthenticated, (req, res) => {
     res.render('admin/login');
   });
   app.post('/admin/login', async (req, res) => {
@@ -22,8 +25,9 @@ module.exports = function (app) {
           error: 'Invalid password',
         });
       }
-      const token = generateToken({ adminId: admin.id });
-      req.session.adminToken = token;
+      // console.log(admin.dataValues);
+      req.session.user = admin.dataValues;
+      req.session.user.isAdmin = true;
       return res.redirect('/admins/managers');
     } catch (err) {
       console.error(err);
@@ -33,7 +37,7 @@ module.exports = function (app) {
     }
   });
   // Manager login route
-  app.get('/manager/login', (req, res) => {
+  app.get('/manager/login', checkIsAuthenticated, (req, res) => {
     res.render('manager/login');
   });
   app.post('/manager/login', async (req, res) => {
@@ -54,8 +58,11 @@ module.exports = function (app) {
           error: 'Invalid email or password',
         });
       }
-      const token = generateToken({ managerId: manager.id });
-      req.session.managerToken = token;
+      // Delete the password property
+      delete manager.dataValues.password;
+      // console.log(manager.dataValues);
+
+      req.session.user = manager.dataValues;
       return res.redirect('/manager/dashboard');
     } catch (err) {
       console.error(err);
