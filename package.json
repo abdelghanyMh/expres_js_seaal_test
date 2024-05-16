@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run dockup && npm run build:css && node ./bin/www",
+    "dev": "npm run dockup && npm run build:css",
+    "start": "node ./bin/www",
     "build:css": "postcss src/css/app.css -o assets/styles.css",
     "dockup": "docker compose up -d",
     "docker:build": " docker compose up --build ",
     "db:create": "npx sequelize-cli db:create",
     "db:drop": "npx sequelize-cli db:drop",
-    "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
     "db:init": "npm run db:create && npm run db:migrate &&  npm run db:seed",
     "listen": "nodemon ./bin/www",
     "init": "npm run docker:build && npm run db:init"

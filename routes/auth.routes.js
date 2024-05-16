@@ -10,7 +10,7 @@ module.exports = function (app) {
     res.render('admin/login');
   });
   app.post('/admin/login', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password } = req.body;
     try {
       const admin = await Admin.findOne({ where: { email } });

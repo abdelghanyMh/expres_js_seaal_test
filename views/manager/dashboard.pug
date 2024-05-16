@@ -9,7 +9,7 @@ html(lang="en")
     div(class="max-w-md p-14  bg-white rounded-lg shadow-md")
       img(src="/images/LOGO-POUR-WEB-01.png" alt="Company Logo" class="mx-auto mb-6")
       h2(class="text-xl font-semibold mb-4 text-center") Send Message
-        button(type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-600 transition duration-300" onclick=`sendMessage()`) Send
+        button(type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-600 transition duration-300" onclick=`sendMessage(${user.id})`) Send
       div(class="mt-4")
         p(class="text-green-600 text-center hidden" id="successMessage") Message sent successfully.
         p(class="text-red-600 text-center hidden" id="failureMessage") Message failed to send. Please try again.

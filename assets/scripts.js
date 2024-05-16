@@ -16,7 +16,7 @@ function resetOccurrence(managerId) {
     });
 }
 
-function sendMessage(managerId = 1) {
+function sendMessage(managerId) {
   fetch('/manager/send', {
     method: 'POST',
     headers: {

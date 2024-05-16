@@ -2,7 +2,7 @@ const { ensureAuthenticatedAndManager } = require('../middelware/middlewares');
 const Manager = require('../models/Manager');
 module.exports = function (app) {
   app.get('/manager/dashboard', ensureAuthenticatedAndManager, (req, res) => {
-    console.log(req.session.user);
+    // console.log(req.session.user);
     res.render('manager/dashboard', {
       user: req.session.user,
     });
@@ -13,7 +13,7 @@ module.exports = function (app) {
       const manager = await Manager.findOne({
         where: { id: req.body.managerId },
       });
-      console.log('response___>' + manager.occurrence);
+      // console.log('response___>' + manager.occurrence);
 
       if (!manager) {
         return res
@@ -24,7 +24,6 @@ module.exports = function (app) {
       const currentHour = currentDate.getHours();
       console.warn(currentHour >= 10 && manager.occurrence === 0);
       if (currentHour >= 10 && manager.occurrence === 0) {
-        console.log('check');
         await Manager.update(
           { occurrence: 1 },
           { where: { id: req.body.managerId } }
