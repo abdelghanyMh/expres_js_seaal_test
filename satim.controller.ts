@@ -54,11 +54,11 @@ async function get_satim_to_fatourati_transactions(
     }
     const { url_json, username, password } = satimData?.dataValues;
 
-    // const filesavepathAllTransactions = "/mnt/Archive-transation";
-    // const fileSavePath = "/mnt/X7"; // X7 path
-    const filesavepathAllTransactions =
-      "\\\\KBA-FCH-IN-T01\\SharedFolders$\\DSI (Direction des Systemes d'information)\\02-Applicatif\\rapports_fatourati_export_btns";
-    const fileSavePath = "\\\\kba-x7-ap-p01\\FICHIERS_TST\\IMPORT"; // X7 path
+    const filesavepathAllTransactions = "/mnt/Archive-transation";
+    const fileSavePath = "/mnt/X7"; // X7 path
+    // const filesavepathAllTransactions =
+    //   "\\\\KBA-FCH-IN-T01\\SharedFolders$\\DSI (Direction des Systemes d'information)\\02-Applicatif\\rapports_fatourati_export_btns";
+    // const fileSavePath = "\\\\kba-x7-ap-p01\\FICHIERS_TST\\IMPORT"; // X7 path
 
     const fileNameAllTransactions = `SATIM_SEAAL_All_Transaction_${formatDateToYYYYDDMM(
       Date.now()
@@ -123,9 +123,6 @@ async function get_satim_to_fatourati_transactions(
       `\n${new Date().toLocaleString()} Starting data formatting process`
     );
 
-    // FIXME remove on prod
-    await delay(10000);
-
     //! start formatting the satim API response
     // TODO put the transactions with dipposed on the status on the a seperated file the other put them on another file
     // TODO chqngfe the file number
@@ -141,12 +138,6 @@ async function get_satim_to_fatourati_transactions(
         const orderId =
           transaction.attributes.find((attr) => attr.name === "mdOrder")
             ?.value || "satim Api didn't sent OrderId ";
-        // FIXME workaround to be deleted after Missing Order ID in Local Database (Satim API Order ID Mismatch) issue is closed
-        if (
-          orderId === "TGHCMjVRRraESIAAEQWP" ||
-          orderId === "ykyLxLIN4jCUSIAAEQWH"
-        )
-          return [];
 
         const transactionDb = await Transactions.findOne({
           where: {
@@ -201,8 +192,18 @@ async function get_satim_to_fatourati_transactions(
       fileNameAllTransactions
     );
 
-    await fs.writeFile(filepathAllTransactions, processArray(tmp2));
+    await fs.writeFile(
+      filepathAllTransactions,
+      processArray(allTransitionsArray)
+    );
     await fs.writeFile(filePath, processArray(depositedTransitions));
+
+    logger.info(
+      `JSON files saved to ${filepathAllTransactions} and ${filePath}`
+    );
+    return res
+      .status(200)
+      .json({ message: "Files generated and saved successfully" });
   } catch (error) {
     logger.error("Unexpected error:", error);
     return res.status(500).json({ error: "An unexpected error occurred" });
@@ -287,7 +288,5 @@ function processArray(inputArray: any): string {
     )
     .join("\n");
 }
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+
 export { get_satim_to_fatourati_transactions };
